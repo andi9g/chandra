@@ -1,0 +1,39 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+
+
+// Route::get('pdf', 'startController@pdf');
+
+// Route::get('siswa/export/', 'startController@export');
+
+Auth::routes();
+Route::get('login/google', 'Auth\LoginController@loginGoogle')->name('login.google');
+Route::get('login/google/callback', 'Auth\LoginController@callbackGoogle');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', function(){
+        return view('layouts.master');
+    });
+
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+    Route::get('/pakettravel', 'pakettravelC@index');
+    Route::post('/pakettravel/pemesanan/{idpakettravel}', 'pakettravelC@pemesanan')->name('pemesanan.paket');
+    Route::get('/pakettravel/pesanan/{idpakettravel}', 'pakettravelC@pesanan');
+    Route::get('/pesanan/show/{idpemesanan}', 'pakettravelC@show');
+
+
+});
