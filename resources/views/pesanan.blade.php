@@ -65,10 +65,10 @@
 
                         <td>
                             @if ($item->ket == '1')
-                                <font class="text-warning">Belum melakukan pembayaran</font>
+                                <font class="text-danger">Belum melakukan pembayaran</font>
 
                             @elseif($item->ket == '2')
-                                <font class="text-danger">Pembayaran Gagal</font>
+                                <font class="text-warning">Pembayaran sedang diproses</font>
                             @elseif($item->ket == '3')
                                 <font class="text-success">Pembayaran berhasil</font>
                             @endif

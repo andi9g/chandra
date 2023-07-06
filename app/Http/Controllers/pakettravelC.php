@@ -62,8 +62,10 @@ class pakettravelC extends Controller
 
     public function pesanan(Request $request, $idpakettravel) {
 
+        $id = Auth::user()->id;
         $pesanan = pemesananM::join('pakettravel', 'pakettravel.idpakettravel', 'pemesanan.idpakettravel')
         ->select('pakettravel.*', 'pemesanan.*')
+        ->where('iduser', $id)
         ->where('pakettravel.idpakettravel', $idpakettravel)->get();
         $judul = pakettravelM::where('idpakettravel', $idpakettravel)->first();
         return view('pesanan', [
@@ -110,7 +112,7 @@ class pakettravelC extends Controller
         ->where('pemesanan.idpemesanan', $idpemesanan)
         ->first();
         $judul = "INVOICE";
-
+        $idpakettravel = $pesanan->idpakettravel;
         $snapToken = $pesanan->snap_token;
 
         $status = "none";
@@ -127,19 +129,34 @@ class pakettravelC extends Controller
             $ambil->save();
         }
 
-        $status = Midtrans::status($pesanan);
-
-        dd($status);
-
-
 
         $pesanan = pemesananM::join('pakettravel', 'pakettravel.idpakettravel', 'pemesanan.idpakettravel')
         ->select('pakettravel.*', 'pemesanan.*')
         ->where('pemesanan.idpemesanan', $idpemesanan)
         ->first();
 
-        return view('show', compact('pesanan', 'snapToken', 'judul'));
+        return view('show', compact('pesanan', 'snapToken', 'judul', 'idpakettravel'));
     }
+
+   public function proses(Request $request, $idpemesanan)
+   {
+        $request->validate([
+            'ket'=>'required'
+        ]);
+
+        try{
+            $ket = $request->ket;
+
+            $update = pemesananM::where('idpemesanan', $idpemesanan)->update([
+                'ket' => $ket,
+            ]);
+
+            return response()->json(['success'=>'Pembayaran berhasil']);;
+
+        }catch(\Throwable $th){
+            return response()->json(['success'=>'Terjadi kesalahan']);;
+        }
+   }
 
     /**
      * Show the form for editing the specified resource.

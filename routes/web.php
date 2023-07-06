@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 Route::get('login/google', 'Auth\LoginController@loginGoogle')->name('login.google');
 Route::get('login/google/callback', 'Auth\LoginController@callbackGoogle');
-
+Route::post('payments/midtrans-notification', 'callbackC@receive')->name('lihat.pembayaran');
 Route::middleware(['auth'])->group(function () {
     Route::get('/', function(){
         return view('layouts.master');
@@ -34,6 +34,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/pakettravel/pemesanan/{idpakettravel}', 'pakettravelC@pemesanan')->name('pemesanan.paket');
     Route::get('/pakettravel/pesanan/{idpakettravel}', 'pakettravelC@pesanan');
     Route::get('/pesanan/show/{idpemesanan}', 'pakettravelC@show');
+    Route::post('/pesanan/ajaxPost/{idpemesanan}', 'pakettravelC@proses')->name('ajax.post');
+
+
+
 
 
 });

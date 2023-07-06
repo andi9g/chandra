@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-    <base href="{{ url('/', ["/"]) }}">
+    <base href="{{ url('/', ['/']) }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  @yield('meta')
   <title>SIAKAD</title>
 
   <!-- Google Font: Source Sans Pro -->
@@ -127,13 +128,15 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="{{ url('dashboard', []) }}" class="nav-link @yield('warnadashboard')">
+            <a href="{{ url('home', []) }}" class="nav-link @yield('warnahome')">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Dashboard
+                Home
               </p>
             </a>
           </li>
+          @if (Auth::user()->posisi == 'user')
+
           <li class="nav-item">
             <a href="{{ url('pakettravel', []) }}" class="nav-link @yield('warnapakettravel')">
               <i class="nav-icon fas fa-users"></i>
@@ -142,30 +145,36 @@
               </p>
             </a>
           </li>
+
+          @endif
+
+          @if (Auth::user()->posisi == 'admin')
+
           <li class="nav-item">
-            <a href="{{ url('guru', []) }}" class="nav-link @yield('warnaguru')">
-              <i class="nav-icon fas fa-user"></i>
+            <a href="{{ url('pembayaran', []) }}" class="nav-link @yield('warnapembayaran')">
+              <i class="nav-icon fas fa-users"></i>
               <p>
-                Guru
+                Status Pembayaran
               </p>
             </a>
           </li>
+
+
           <li class="nav-item">
-            <a href="{{ url('jadwal', []) }}" class="nav-link @yield('warnajadwal')">
-              <i class="nav-icon fas fa-calendar"></i>
+            <a href="{{ url('Jadwal', []) }}" class="nav-link @yield('warnaJadwal')">
+              <i class="nav-icon fas fa-users"></i>
               <p>
-                Jadwal
+                Status Jadwal
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="{{ url('kontak', []) }}" class="nav-link @yield('warnakontak')">
-              <i class="nav-icon fas fa-phone"></i>
-              <p>
-                Kontak
-              </p>
-            </a>
-          </li>
+
+          @endif
+
+
+
+
+
 
         </ul>
       </nav>

@@ -22,7 +22,9 @@ class CallbackService extends Midtrans
 
     public function isSignatureKeyVerified()
     {
+        // dd($this->notification->signature_key);
         return ($this->_createLocalSignatureKey() == $this->notification->signature_key);
+
     }
 
     public function isSuccess()
@@ -70,8 +72,13 @@ class CallbackService extends Midtrans
     {
         $notification = new Notification();
 
+        // dd($notification->order_id);
         $orderNumber = $notification->order_id;
-        $order = pemesananM::where('number', $orderNumber)->first();
+        $order = pemesananM::join('pakettravel', 'pakettravel.idpakettravel', 'pemesanan.idpakettravel')
+        ->select('pakettravel.*', 'pemesanan.*')
+        ->where('pemesanan.number', $orderNumber)
+        ->where('pemesanan.idpemesanan', $idpemesanan)
+        ->first();
 
         $this->notification = $notification;
         $this->pesanan = $order;

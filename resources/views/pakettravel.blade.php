@@ -21,7 +21,10 @@
 
                 <div class="card-footer my-0 py-2 text-right">
                     @php
-                        $pemesanan = DB::table('pemesanan')->where('idpakettravel', $item->idpakettravel)->count();
+                        $id = Auth::user()->id;
+                        $pemesanan = DB::table('pemesanan')
+                        ->where('iduser', $id)
+                        ->where('idpakettravel', $item->idpakettravel)->count();
                     @endphp
                     @if ($pemesanan > 0)
                         <a href="{{ url('pakettravel/pesanan/'.$item->idpakettravel, []) }}" class="btn btn-secondary">Lihat Paket Pesanan</a>
