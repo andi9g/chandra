@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   @yield('meta')
-  <title>SIAKAD</title>
+  <title>TRAVEL</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -27,6 +27,7 @@
   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+  @livewireStyles
 </head>
 <body class="hold-transition sidebar-mini layout-fixed text-sm">
 <div class="wrapper">
@@ -95,7 +96,7 @@
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
       <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">SIAKAD</span>
+      <span class="brand-text font-weight-light">TRAVEL</span>
     </a>
 
     <!-- Sidebar -->
@@ -161,8 +162,8 @@
 
 
           <li class="nav-item">
-            <a href="{{ url('Jadwal', []) }}" class="nav-link @yield('warnaJadwal')">
-              <i class="nav-icon fas fa-users"></i>
+            <a href="{{ url('jadwal', []) }}" class="nav-link @yield('warnajadwal')">
+              <i class="nav-icon fas fa-calendar"></i>
               <p>
                 Status Jadwal
               </p>
@@ -257,7 +258,7 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="dist/js/pages/dashboard.js"></script>
 @include('sweetalert::alert')
-
 @yield('script')
+@livewireScripts
 </body>
 </html>

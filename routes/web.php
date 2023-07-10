@@ -37,6 +37,13 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/pesanan/ajaxPost/{idpemesanan}', 'pakettravelC@proses')->name('ajax.post');
 
 
+    Route::middleware(['GerbangAdmin'])->group(function () {
+        Route::get('pembayaran', 'pembayaranC@index');
+        Route::get('pembayaran/proses', 'pembayaranC@proses')->name('proses.pembayaran');
+
+        Route::get('jadwal', 'jadwalC@index');
+
+    });
 
 
 

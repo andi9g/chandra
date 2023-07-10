@@ -15,12 +15,24 @@ class Travels extends Migration
     public function up()
     {
         Schema::create('buktipembayaran', function (Blueprint $table) {
-            $table->bigIncrements('idbuktipembayaran');
-            $table->Integer('uid')->unique();
+            $table->bigIncrements('uid');
+            $table->string('number', 16)->unique();
             $table->string('subject');
-            $table->datetime('from');
-            $table->string('message');
-            $table->string('date');
+            $table->string('from');
+            $table->longText('message');
+            $table->dateTime('date');
+            $table->timestamps();
+        });
+
+        Schema::create('pemesanan', function (Blueprint $table) {
+            $table->bigIncrements('idpemesanan');
+            $table->string('number', 16)->unique();
+            $table->Integer('iduser');
+            $table->Integer('idpakettravel');
+            $table->date('tanggalmulai');
+            $table->date('tanggalselesai');
+            $table->string('snap_token', 36)->nullable();
+            $table->enum('ket', ['1','2','3']); // 1 = pendding; 2=gagal 3= terbayar
             $table->timestamps();
         });
 
@@ -48,17 +60,7 @@ class Travels extends Migration
             'hari' => 4,
         ]);
 
-        Schema::create('pemesanan', function (Blueprint $table) {
-            $table->bigIncrements('idpemesanan');
-            $table->string('number', 16);
-            $table->Integer('iduser');
-            $table->Integer('idpakettravel');
-            $table->date('tanggalmulai');
-            $table->date('tanggalselesai');
-            $table->string('snap_token', 36)->nullable();
-            $table->enum('ket', ['1','2','3']); // 1 = pendding; 2=gagal 3= terbayar
-            $table->timestamps();
-        });
+
 
     }
 
