@@ -154,10 +154,19 @@
           @if (Auth::user()->posisi == 'admin')
 
           <li class="nav-item">
-            <a href="{{ url('order', []) }}" class="nav-link @yield('warnaorder')">
-              <i class="nav-icon fas fa-users"></i>
+            <a href="{{ route('tambah.order') }}" class="nav-link @yield('warnacreateorder')">
+              <i class="nav-icon fas fa-plus"></i>
               <p>
-                ORDER
+                CREATE ORDER
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{ url('order', []) }}" class="nav-link @yield('warnaorder')">
+              <i class="nav-icon fas fa-database"></i>
+              <p>
+                ORDER LIST
               </p>
             </a>
           </li>
@@ -171,6 +180,8 @@
               </p>
             </a>
           </li>
+
+          
 
           @endif
 

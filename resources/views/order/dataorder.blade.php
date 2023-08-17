@@ -61,7 +61,37 @@
                       <td>{{ $data->dateend }}</td>
                       <td>{{ $data->status }}</td>
                       <td>{{ number_format($data->total_payment, 0, ",",".") }}</td>
+                      <td>
+                        <button type="submit" class="badge badge-danger border-0 py-1">
+                          <i class="fa fa-trash"></i> Cancel
+                        </button>
+
+                        <button class="badge border-0 py-1 badge-info" type="button" data-toggle="modal" data-target="#ubahInvoice{{ $data->idinvoice }}">
+                          <i class="fa fa-edit"></i> Edit
+                        </button>
+                      </td>
+
                     </tr>
+
+                    <div id="ubahInvoice{{ $data->idinvoice }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="my-modal-title">Ubah Data</h5>
+                            <button class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            edit data
+                          </div>
+                          <div class="modal-footer">
+                            Footer
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                 @endforeach
               </tbody>
             </table>

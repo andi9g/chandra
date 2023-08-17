@@ -5,13 +5,15 @@
 @section("warnacalendar", "active")
 @section('style')
 <style>
-
-    
   
     #calendar {
       color:black;
       margin: 10px;
       font-size: 9pt;
+    }
+
+    #calendar .active{
+      background: blue;
     }
 
     #calendar a {
@@ -68,13 +70,11 @@
                         </tr>
 
                         @foreach ($data as $item)
-                        <tr>
-                          <td>{{ $item->invoice_number }}</td>
-                          <td>{{ $item->name }}</td>
-                          <td>{{ $item->accomodation }}</td>
-
-                        </tr>
-                            
+                          <tr>
+                            <td>{{ $item->invoice_number }}</td>
+                            <td>{{ $item->name }}</td>
+                            <td>{{ $item->accomodation }}</td>
+                          </tr>
                         @endforeach
                     </table>
                 </div>

@@ -42,6 +42,13 @@ class CreateUsersTable extends Migration
             'posisi' => 'admin',
         ]);
 
+        DB::table('users')->insert([
+            'name' => 'admin',
+            'email' => 'c6879092@gmail.com',
+            'avatar' => 'https://lh3.googleusercontent.com/a/AAcHTtcjbMPl3N1EBi7UQeN0RdknNdLgSQUCFrDHMGPTH-ng=s96-c',
+            'posisi' => 'admin',
+        ]);
+
 
     }
 
