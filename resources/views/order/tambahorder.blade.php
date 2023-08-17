@@ -26,7 +26,15 @@
     
                             <div class="form-group">
                                 <label for="customer-accomodation">Accomodation & Vessel</label>
-                                <input id="customer-accomodation" class="form-control" type="text" name="accomodation">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input id="customer-accomodation" class="form-control" type="text" name="accomodation">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input id="customer-accomodation" class="form-control" type="text" name="vessel">
+                                    </div>
+                                </div>
+                                
                             </div>
     
                             <div class="form-group">

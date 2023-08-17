@@ -23,6 +23,7 @@ class Travels extends Migration
             $table->date('datestart');
             $table->date('dateend');
             $table->string('accomodation');
+            $table->string('vessel');
             $table->string('email');
             $table->string('name');
             $table->string('phone');
