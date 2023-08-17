@@ -36,10 +36,18 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/pesanan/show/{idpemesanan}', 'pakettravelC@show');
     Route::post('/pesanan/ajaxPost/{idpemesanan}', 'pakettravelC@proses')->name('ajax.post');
 
+    
+    // Route::get('/invoice/create', "pembayaranC@coba")->name('invoice.create');
 
     Route::middleware(['GerbangAdmin'])->group(function () {
         Route::get('pembayaran', 'pembayaranC@index');
         Route::get('pembayaran/proses', 'pembayaranC@proses')->name('proses.pembayaran');
+
+        Route::get("order", "orderC@index");
+        Route::get("order/tambah", "orderC@order")->name("tambah.order");
+        Route::post("order/tambah", "orderC@createorder")->name("order.create.order");
+        
+        Route::get("calendar", "orderC@calendar");
 
         Route::get('jadwal', 'jadwalC@index');
 

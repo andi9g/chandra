@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- JQVMap -->
   <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
+
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <!-- overlayScrollbars -->
@@ -28,6 +29,7 @@
   <!-- summernote -->
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
   @livewireStyles
+  @yield('style')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed text-sm">
 <div class="wrapper">
@@ -152,20 +154,20 @@
           @if (Auth::user()->posisi == 'admin')
 
           <li class="nav-item">
-            <a href="{{ url('pembayaran', []) }}" class="nav-link @yield('warnapembayaran')">
+            <a href="{{ url('order', []) }}" class="nav-link @yield('warnaorder')">
               <i class="nav-icon fas fa-users"></i>
               <p>
-                Status Pembayaran
+                ORDER
               </p>
             </a>
           </li>
 
 
           <li class="nav-item">
-            <a href="{{ url('jadwal', []) }}" class="nav-link @yield('warnajadwal')">
+            <a href="{{ url('calendar', []) }}" class="nav-link @yield('warnacalendar')">
               <i class="nav-icon fas fa-calendar"></i>
               <p>
-                Status Jadwal
+                Calendar 
               </p>
             </a>
           </li>
@@ -187,20 +189,11 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <div class="content-header">
-        <div class="container-fluid">
-          <div class="row mb-2">
-            <div class="col-sm-6">
-              <h1 class="m-0">@yield('judul')</h1>
-            </div><!-- /.col -->
-            <div class="col-sm-6">
-              <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">@yield('judul')</li>
-              </ol>
-            </div><!-- /.col -->
-          </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
+      <div class="container">
+        <h3>@yield('judul')</h3>
+
       </div>
+    </div>
 
     <section class="content">
 
@@ -227,6 +220,7 @@
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
+
 <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
@@ -257,6 +251,7 @@
 
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="dist/js/pages/dashboard.js"></script>
+<script src='fullcalendar/dist/index.global.js'></script>
 @include('sweetalert::alert')
 @yield('script')
 @livewireScripts

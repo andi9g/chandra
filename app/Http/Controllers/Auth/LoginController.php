@@ -54,6 +54,7 @@ class LoginController extends Controller
         $user = Socialite::driver('google')->user();
         // LaravelGmail::makeToken();
 
+        // dd($user);
         $this->_registerOrLoginUser($user);
 
         return redirect('/home')->with('success', 'Welcome ');

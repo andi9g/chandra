@@ -14,6 +14,31 @@ class Travels extends Migration
      */
     public function up()
     {
+        Schema::create('invoice', function (Blueprint $table) {
+            $table->bigIncrements('idinvoice');
+            $table->string("invoice_number")->unique();
+            $table->decimal('total_payment', 9, 2)->default(0);
+            $table->enum("status", ["pending", "success", "fail"]);
+            $table->string('transaction_id')->nullable();
+            $table->date('datestart');
+            $table->date('dateend');
+            $table->string('accomodation');
+            $table->string('email');
+            $table->string('name');
+            $table->string('phone');
+            $table->string('note');
+            $table->timestamps();
+        });
+
+        Schema::create('snaptoken', function (Blueprint $table) {
+            $table->bigIncrements('idsnaptoken');
+            $table->integer("idinvoice");
+            $table->String("snaptoken")->unique();
+            $table->timestamps();
+
+        });
+        
+
         Schema::create('buktipembayaran', function (Blueprint $table) {
             $table->bigIncrements('uid');
             $table->string('number', 16)->unique();
