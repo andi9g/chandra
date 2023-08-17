@@ -35,6 +35,16 @@ class orderC extends Controller
         return view("order.tambahorder");
     }
 
+
+    public function editorder(Request $request, $idinvoice)
+    {
+        $data = $request->all();
+        $update = invoiceM::where("idinvoice", $idinvoice)->first();
+        $update->update($data);
+
+        return redirect()->back()->with("success", "Success")->withInput();
+    }
+
     public function createorder(Request $request)
     {
         Config::$serverKey = config('midtrans.server_key');

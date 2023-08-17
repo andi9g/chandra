@@ -46,6 +46,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get("order", "orderC@index");
         Route::get("order/tambah", "orderC@order")->name("tambah.order");
         Route::post("order/tambah", "orderC@createorder")->name("order.create.order");
+        Route::put("order/edit/{idinvoice}", "orderC@editorder")->name("order.edit.order");
         
         Route::get("calendar", "orderC@calendar");
 
