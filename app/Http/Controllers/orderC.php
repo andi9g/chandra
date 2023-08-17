@@ -45,6 +45,8 @@ class orderC extends Controller
         return redirect()->back()->with("success", "Success")->withInput();
     }
 
+    
+
     public function createorder(Request $request)
     {
         Config::$serverKey = config('midtrans.server_key');
