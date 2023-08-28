@@ -13,7 +13,7 @@
             <div class="icon">
                 <i class="fa fa-check"></i>
             </div>
-            <a href="#" class="small-box-footer">More info
+            <a href="{{ url('order', []) }}" class="small-box-footer">More info
                 <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
@@ -30,7 +30,7 @@
             <div class="icon">
                 <i class="fa fa-clock"></i>
             </div>
-            <a href="#" class="small-box-footer">More info
+            <a href="{{ url('order', []) }}" class="small-box-footer">More info
                 <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
@@ -46,7 +46,7 @@
             <div class="icon">
                 <i class="fa fa-times"></i>
             </div>
-            <a href="#" class="small-box-footer">More info
+            <a href="{{ url('order', []) }}" class="small-box-footer">More info
                 <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
