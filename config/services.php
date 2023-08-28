@@ -33,6 +33,7 @@ return [
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        // 'redirect' => 'https://a1c4-180-252-49-3.ngrok-free.app/login/google/callback',
         'redirect' => 'http://127.0.0.1:8000/login/google/callback',
         // 'redirect' => 'http://127.0.0.1:8000/login/google/callback',
         // 'redirect' => 'https://75c6-182-2-5-10.ngrok-free.app/login/google/callback',

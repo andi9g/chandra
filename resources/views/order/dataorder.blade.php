@@ -36,6 +36,7 @@
                   <th rowspan="2">Invoice Number</th>
                   <th rowspan="2">Customer Name</th>
                   <th rowspan="2">Accomodation</th>
+                  <th rowspan="2">Vessel</th>
                   <th class="text-center" colspan="2">Date of Travel</th>
                   <th rowspan="2">Payment Status</th>
                   <th rowspan="2">Price</th>
@@ -57,14 +58,22 @@
                       <td>{{ $data->invoice_number }}</td>
                       <td>{{ $data->name }}</td>
                       <td>{{ $data->accomodation }}</td>
+                      <td>{{ $data->vessel }}</td>
                       <td>{{ $data->datestart }}</td>
                       <td>{{ $data->dateend }}</td>
                       <td>{{ $data->status }}</td>
                       <td>{{ number_format($data->total_payment, 0, ",",".") }}</td>
                       <td>
-                        <button type="submit" class="badge badge-danger border-0 py-1">
-                          <i class="fa fa-trash"></i> Cancel
-                        </button>
+                        @if ($data->status != "success")
+                        <form action="{{ route('hapus.order', [$data->idinvoice]) }}">
+                          @csrf
+                          @method("DELETE")
+                          <button type="submit" onclick="return confirm('yakin ingin dihapus?')" class="badge badge-danger border-0 py-1">
+                            <i class="fa fa-trash"></i> Cancel
+                          </button>
+                        </form>
+                            
+                        @endif
 
                         <button class="badge border-0 py-1 badge-info" type="button" data-toggle="modal" data-target="#ubahInvoice{{ $data->idinvoice }}">
                           <i class="fa fa-edit"></i> Edit

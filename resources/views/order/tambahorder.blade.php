@@ -16,7 +16,7 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input id="email" class="form-control" type="email" name="email">
+                                <input id="email" class="form-control"  type="email" name="email">
                             </div>
     
                             <div class="form-group">

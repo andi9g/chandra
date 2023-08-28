@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\orderM;
 use Illuminate\Http\Request;
 use App\Models\invoiceM;
+use App\Models\User;
 use Midtrans\Config;
 use Midtrans\Snap;
 use App\Models\snaptokenM;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SampleMail;
+use Hash;
 
 class orderC extends Controller
 {
@@ -49,6 +53,7 @@ class orderC extends Controller
 
     public function createorder(Request $request)
     {
+        
         Config::$serverKey = config('midtrans.server_key');
         Config::$clientKey = config('midtrans.client_key');
         Config::$isProduction = config('midtrans.is_production');
@@ -58,6 +63,7 @@ class orderC extends Controller
         $data = $request->all();
         $data["invoice_number"] =  'INV' . date('YmdHis');
         $data["status"] = "pending";
+        $data["idinvoice"] = strtotime(date("Y-m-d H:i:s"));
         
         $invoice = new invoiceM($data);
         $invoice->save();
@@ -69,29 +75,61 @@ class orderC extends Controller
             )
         );
 
-        $snapToken = Snap::getSnapToken($transactionDetails);
 
-        $tambahsnap = new snaptokenM([
-            "idinvoice" => $invoice->idinvoice,
-            "snaptoken" => $snapToken,
-        ]);
+        $cek = User::where('email', $request->email)->count();
+        $email = $request->email;
+        $name = $request->name;
+        $phone = $request->phone;
+        $link = url("/invoice/".$invoice->invoice_number."/show");
+
+        
+
+        $mailData = [
+            'title' => 'Travel Order',
+            'content' => 'thank you for trusting our travel, here is the account information we have provided',
+            'email' => $email,
+            'invoice_number' => $invoice->invoice_number,
+            'total_payment' => $invoice->total_payment,
+            'accomodation' => $invoice->accomodation,
+            'vessel' => $invoice->vessel,
+            'datestart' => $invoice->datestart,
+            'dateend' => $invoice->dateend,
+            'link' => $link,
+        ];
+        
+        Mail::to($email)
+            ->send(new SampleMail($mailData));
+
         
         return redirect('order')->with("success", "Data berhasil ditambahkan");
     }
 
+    public function hapus(Request $request, $idinvoice)
+    {
+        invoiceM::destroy($idinvoice);
+        return redirect()->back()->with("success", "Invoice berhasil dihapus")->withInput();
+    }
+    
     public function paymentCallback(Request $request)
     {
         // Proses callback setelah pembayaran sukses/gagal
         // Periksa status pembayaran, lakukan tindakan sesuai kebutuhan
     }
     
+    public function konfirmasi(Request $request, $idinvoice)
+    {
+        $data = $request->all();
+        $update = invoiceM::where("idinvoice", $idinvoice)->first();
+        $update->update($data);
+        return redirect()->back()->with("success", "KONFIRMASI BERHASIL")->withInput();
+    }
 
     public function calendar(Request $request)
     {
         $keyword = empty($request->tanggal)?date("Y-m-d"):$request->tanggal;
         $tanggal = date("Y-m", strtotime($keyword));
 
-        $data = invoiceM::where("datestart", "like", "$tanggal%")->get();
+        $data = invoiceM::where("status", "success")->where("datestart", "like", "$tanggal%")->get();
 
         
         return view("order.calendar", [

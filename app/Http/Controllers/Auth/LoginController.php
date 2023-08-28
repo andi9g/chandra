@@ -64,6 +64,7 @@ class LoginController extends Controller
         $user = User::where('email', $data->email)->first();
 
         if(!$user) {
+            return redirect('login')->with("error", "Maaf, anda belum terdaftar oleh sistem");
             $user = new User;
             $user->name = $data->name;
             $user->email = $data->email;

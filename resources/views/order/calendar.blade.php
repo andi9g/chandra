@@ -67,14 +67,51 @@
                             <th>Invoice</th>
                             <th>Name</th>
                             <th>To</th>
+                            <th>Ket</th>
                         </tr>
 
                         @foreach ($data as $item)
                           <tr>
                             <td>{{ $item->invoice_number }}</td>
                             <td>{{ $item->name }}</td>
-                            <td>{{ $item->accomodation }}</td>
+                            <td>{{ $item->accomodation." & ".$item->vessel }}</td>
+                            <td>
+                              @if (empty($item->confirmation))
+                                  <button class="badge py-1 border-0 badge-warning" type="button" data-toggle="modal" data-target="#konfirmasi{{ $item->idinvoice }}">
+                                    <i class="fa fa-exclamation-triangle"></i>
+                                  </button>
+                              @endif
+                            </td>
                           </tr>
+                          <div id="konfirmasi{{ $item->idinvoice }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="my-modal-title">KONFIRMASI</h5>
+                                  <button class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <form action="{{ route('konfirmation.invoice', [$item->idinvoice]) }}" method="post">
+                                  @csrf
+                                  <div class="modal-body">
+                                    <div class="form-group">
+                                      <label for="konfirmation">Hotel Konfirmation</label>
+                                      <input id="konfirmation" class="form-control" type="text" name="confirmation">
+                                    </div>
+  
+                                    <div class="form-group">
+                                      <label for="konfirmation">Vessel Tiket</label>
+                                      <input id="konfirmation" class="form-control" type="text" name="tiket">
+                                    </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success">KONFIRM NOW</button>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
                         @endforeach
                     </table>
                 </div>
@@ -113,10 +150,10 @@ document.addEventListener('DOMContentLoaded', function() {
       events: [
         @foreach ($data as $item)
           {
-              title: '{{ $item->accomodation }}',
+              title: '{{ ucwords($item->name)." - ".$item->accomodation }}',
               start: '{{ $item->datestart }}',
-              end: '{{ $item->dateend }}',
-              color: '@php echo ($item->status == "pending") ? "#E21F1F" : "#1F1F1F"; @endphp'
+              end: '{{ date("Y-m-d", strtotime("+1 days", strtotime($item->dateend))) }}',
+              color: '@if($item->confirmation==null) @php echo "#F3AD0F" @endphp @else @php echo "#1B8F00" @endphp @endif'
           },
           @endforeach
       ]

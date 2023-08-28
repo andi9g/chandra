@@ -4,6 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class CreateUsersTable extends Migration
 {
@@ -33,6 +34,15 @@ class CreateUsersTable extends Migration
             'email' => 'chandra.james3219421@gmail.com',
             'avatar' => 'https://lh3.googleusercontent.com/a/AAcHTtcjbMPl3N1EBi7UQeN0RdknNdLgSQUCFrDHMGPTH-ng=s96-c',
             'posisi' => 'admin',
+            'password' => Hash::make('admin'),
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'ramadhan',
+            'email' => 'ramadhan89.ari@gmail.com',
+            'avatar' => 'https://lh3.googleusercontent.com/a/AAcHTtcjbMPl3N1EBi7UQeN0RdknNdLgSQUCFrDHMGPTH-ng=s96-c',
+            'posisi' => 'admin',
+            'password' => Hash::make('admin'),
         ]);
 
         DB::table('users')->insert([
@@ -40,6 +50,7 @@ class CreateUsersTable extends Migration
             'email' => 'andirizky.bayuputra@gmail.com',
             'avatar' => 'https://lh3.googleusercontent.com/a/AAcHTtcjbMPl3N1EBi7UQeN0RdknNdLgSQUCFrDHMGPTH-ng=s96-c',
             'posisi' => 'admin',
+            'password' => Hash::make('admin'),
         ]);
 
         DB::table('users')->insert([
@@ -47,6 +58,7 @@ class CreateUsersTable extends Migration
             'email' => 'c6879092@gmail.com',
             'avatar' => 'https://lh3.googleusercontent.com/a/AAcHTtcjbMPl3N1EBi7UQeN0RdknNdLgSQUCFrDHMGPTH-ng=s96-c',
             'posisi' => 'admin',
+            'password' => Hash::make('admin'),
         ]);
 
 

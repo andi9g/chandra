@@ -27,7 +27,9 @@ class Travels extends Migration
             $table->string('email');
             $table->string('name');
             $table->string('phone');
-            $table->string('note');
+            $table->string('confirmation')->nullable();
+            $table->string('tiket')->nullable();
+            $table->string('note')->nullable();
             $table->timestamps();
         });
 
@@ -36,7 +38,14 @@ class Travels extends Migration
             $table->integer("idinvoice");
             $table->String("snaptoken")->unique();
             $table->timestamps();
+        });
 
+        Schema::create('passport', function (Blueprint $table) {
+            $table->bigIncrements('idpassport');
+            $table->integer("idinvoice");
+            $table->string("gambar");
+            $table->string("name");
+            $table->timestamps();
         });
         
 

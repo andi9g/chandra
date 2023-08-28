@@ -23,20 +23,30 @@ Auth::routes();
 Route::get('login/google', 'Auth\LoginController@loginGoogle')->name('login.google');
 Route::get('login/google/callback', 'Auth\LoginController@callbackGoogle');
 Route::post('payments/midtrans-notification', 'callbackC@receive')->name('lihat.pembayaran');
-Route::middleware(['auth'])->group(function () {
-    Route::get('/', function(){
-        return view('layouts.master');
-    });
 
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('invoice', 'invoiceC@invoice');
+Route::post('invoice', 'invoiceC@invoicepost')->name("show.invoice");
+Route::get('invoice/{invoice_number}/show', 'invoiceC@showinvoice');
+Route::post('invoice/{idinvoice}', 'invoiceC@tambahpassport')->name("tambah.passport");
+Route::delete('invoice/{idpassport}', 'invoiceC@hapuspassport')->name("hapus.passport");
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get("/home", "homeC@index");
+
+    // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
     Route::get('/pakettravel', 'pakettravelC@index');
     Route::post('/pakettravel/pemesanan/{idpakettravel}', 'pakettravelC@pemesanan')->name('pemesanan.paket');
     Route::get('/pakettravel/pesanan/{idpakettravel}', 'pakettravelC@pesanan');
     Route::get('/pesanan/show/{idpemesanan}', 'pakettravelC@show');
-    Route::post('/pesanan/ajaxPost/{idpemesanan}', 'pakettravelC@proses')->name('ajax.post');
+    // Route::post('/pesanan/ajaxPost/{idpemesanan}', 'pakettravelC@proses')->name('ajax.post');
+    
 
     
+
+    Route::get('order/{idinvoice}/show', 'invoiceC@ordernow')->name("order.now");
+    Route::post('order/{idinvoice}/proses', 'invoiceC@proses')->name('ajax.post');
     // Route::get('/invoice/create', "pembayaranC@coba")->name('invoice.create');
 
     Route::middleware(['GerbangAdmin'])->group(function () {
@@ -45,11 +55,13 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get("order", "orderC@index");
         Route::get("order/tambah", "orderC@order")->name("tambah.order");
+        Route::DELETE("order/hapus/{idinvoice}", "orderC@hapus")->name("hapus.order");
+        Route::post("order/konfirmation/{idinvoice}", "orderC@konfirmasi")->name("konfirmation.invoice");
         Route::post("order/tambah", "orderC@createorder")->name("order.create.order");
         Route::put("order/edit/{idinvoice}", "orderC@editorder")->name("order.edit.order");
         
         Route::get("calendar", "orderC@calendar");
-
+        
         Route::get('jadwal', 'jadwalC@index');
 
     });
