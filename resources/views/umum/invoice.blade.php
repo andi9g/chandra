@@ -15,7 +15,7 @@
                         <form action="{{ route('show.invoice', []) }}" method="post">
                             @csrf
                             <div class="form-group">
-                                <input id="my-input" class="form-control bg-light py-4 text-center" type="text" name="invoice_number">
+                                <input id="my-input" value="{{ empty($_GET['key'])?'':$_GET['key'] }}" class="form-control bg-light py-4 text-center" type="text" name="invoice_number">
                             </div>
                             <button type="submit" class="btn btn-danger btn-block">
                                 PAYMENT
@@ -28,11 +28,7 @@
         </div>
         <br>
 
-        <div class="card p-4" style="background: rgba(255, 255, 255, 0.788);border-radius: 20px">
-            <div class="card-body text-center ">
-                <a href="{{ url('login', []) }}" class="btn btn-block btn-secondary">LOGIN</a>
-            </div>
-        </div>
+        
     </div>
 </div>
 @endsection

@@ -81,7 +81,7 @@ class orderC extends Controller
         $email = $request->email;
         $name = $request->name;
         $phone = $request->phone;
-        $link = url("/invoice/".$invoice->invoice_number."/show");
+        $link = url("/invoice?key=".$invoice->invoice_number);
 
         
 
