@@ -42,5 +42,20 @@
             </tr>
         @endforeach
     </table>
+
+    <table width="100%">
+        <tr>
+            <td width="70%"></td>
+            <td align="center">TTD
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    ALEX
+                    <br>
+                    DIRECTOR SALES
+            </td>
+        </tr>
+    </table>
 </body>
 </html>
