@@ -117,15 +117,15 @@ class orderC extends Controller
         // Periksa status pembayaran, lakukan tindakan sesuai kebutuhan
     }
 
-    public function print(Request $request)
+    public function cetak(Request $request)
     {
         $datestart = $request->datestart;
         $dateend = $request->dateend;
 
         if(date("Y-m", strtotime($datestart)) == date("Y-m", strtotime($dateend))) {
-            $bulan = date("M", strtotime($datestart));
+            $bulan = date("F", strtotime($datestart));
         }else {
-            $bulan = date("M", strtotime($datestart))." to ".date("M", strtotime($dateend));
+            $bulan = date("F", strtotime($datestart))." to ".date("F", strtotime($dateend));
         }
 
         $data = invoiceM::whereBetween("created_at", [$datestart, $dateend])->get();
@@ -134,6 +134,7 @@ class orderC extends Controller
             "data" => $data,
             "datestart" => $datestart,
             "dateend" => $dateend,
+            "bulan" => $bulan,
         ]);
 
         return $pdf->stream("laporan.pdf");
