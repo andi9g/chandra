@@ -30,6 +30,9 @@ Route::get('invoice/{invoice_number}/show', 'invoiceC@showinvoice');
 Route::post('invoice/{idinvoice}', 'invoiceC@tambahpassport')->name("tambah.passport");
 Route::delete('invoice/{idpassport}', 'invoiceC@hapuspassport')->name("hapus.passport");
 
+Route::get('/', function () {
+    return redirect('login');
+});
 
 Route::middleware(['auth'])->group(function () {
     Route::get("/home", "homeC@index");
