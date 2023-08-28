@@ -12,6 +12,7 @@ use App\Models\snaptokenM;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SampleMail;
 use Hash;
+use PDF;
 
 class orderC extends Controller
 {
@@ -115,6 +116,30 @@ class orderC extends Controller
         // Proses callback setelah pembayaran sukses/gagal
         // Periksa status pembayaran, lakukan tindakan sesuai kebutuhan
     }
+
+    public function print(Request $request)
+    {
+        $datestart = $request->datestart;
+        $dateend = $request->dateend;
+
+        if(date("Y-m", strtotime($datestart)) == date("Y-m", strtotime($dateend))) {
+            $bulan = date("M", strtotime($datestart));
+        }else {
+            $bulan = date("M", strtotime($datestart))." to ".date("M", strtotime($dateend));
+        }
+
+        $data = invoiceM::whereBetween("created_at", [$datestart, $dateend])->get();
+
+        $pdf = PDF::loadView("laporan.order", [
+            "data" => $data,
+            "datestart" => $datestart,
+            "dateend" => $dateend,
+        ]);
+
+        return $pdf->stream("laporan.pdf");
+    }
+
+
     
     public function konfirmasi(Request $request, $idinvoice)
     {

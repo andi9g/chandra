@@ -4,6 +4,35 @@
 @section("warnaorder", "active")
 
 @section('content')
+<div id="cetak" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="my-modal-title">Print</h5>
+        <button class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="{{ route('cetak.order', []) }}" method="GET">
+      
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="datestart">Date Start</label>
+            <input id="datestart" class="form-control" type="date" name="datestart">
+          </div>
+  
+          <div class="form-group">
+            <label for="dateend">Date End</label>
+            <input id="dateend" class="form-control" type="date" name="dateend">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Print</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 <div class="container">
     <div class="row">
       <div class="col-md-12">
@@ -14,6 +43,9 @@
                 <form action="{{ route('tambah.order', []) }}" method="get">
                   <button type="submit" class="btn btn-primary">
                       Tambah Data Order
+                  </button>
+                  <button class="btn btn-secondary" type="button" data-toggle="modal" data-target="#cetak">
+                    <i class="fa fa-print"></i> Cetak
                   </button>
               </form>
               </div>
@@ -65,7 +97,7 @@
                       <td>{{ number_format($data->total_payment, 0, ",",".") }}</td>
                       <td>
                         @if ($data->status != "success")
-                        <form action="{{ route('hapus.order', [$data->idinvoice]) }}">
+                        <form action="{{ route('hapus.order', [$data->idinvoice]) }}" method="post">
                           @csrf
                           @method("DELETE")
                           <button type="submit" onclick="return confirm('yakin ingin dihapus?')" class="badge badge-danger border-0 py-1">

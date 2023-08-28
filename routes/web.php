@@ -58,10 +58,11 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get("order", "orderC@index");
         Route::get("order/tambah", "orderC@order")->name("tambah.order");
-        Route::DELETE("order/hapus/{idinvoice}", "orderC@hapus")->name("hapus.order");
+        Route::delete("order/hapus/{idinvoice}", "orderC@hapus")->name("hapus.order");
         Route::post("order/konfirmation/{idinvoice}", "orderC@konfirmasi")->name("konfirmation.invoice");
         Route::post("order/tambah", "orderC@createorder")->name("order.create.order");
         Route::put("order/edit/{idinvoice}", "orderC@editorder")->name("order.edit.order");
+        Route::get("print", "orderC@cetak")->name("cetak.order");
         
         Route::get("calendar", "orderC@calendar");
         
