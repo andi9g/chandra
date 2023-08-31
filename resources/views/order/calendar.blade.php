@@ -72,7 +72,10 @@
 
                         @foreach ($data as $item)
                           <tr>
-                            <td>{{ $item->invoice_number }}</td>
+                            <td>
+                              <a href="{{ url('invoice/'.$item->invoice_number."/show", []) }}" target="_blank">
+                                {{ $item->invoice_number }}</td>
+                              </a>
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->accomodation." & ".$item->vessel }}</td>
                             <td>
@@ -81,7 +84,8 @@
                                     <i class="fa fa-exclamation-triangle"></i>
                                   </button>
                               @else
-                                  <a href="{{ url('invoice/'.$item->invoice_number."/show", []) }}" target="_blank" class="badge badge-success">Detail</a>
+                              {{-- {{ dd($item->idinvoice) }} --}}
+                                  <a href="{{ url("order/show/edit/".$item->idinvoice, []) }}" class="badge badge-success">Detail</a>
 
                               @endif
                             </td>
