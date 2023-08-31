@@ -80,6 +80,9 @@
                                   <button class="badge py-1 border-0 badge-warning" type="button" data-toggle="modal" data-target="#konfirmasi{{ $item->idinvoice }}">
                                     <i class="fa fa-exclamation-triangle"></i>
                                   </button>
+                              @else
+                                  <a href="{{ url('invoice/'.$item->invoice_number."/show", []) }}" target="_blank" class="badge badge-success">Detail</a>
+
                               @endif
                             </td>
                           </tr>

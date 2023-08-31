@@ -25,6 +25,22 @@
             <label for="dateend">Date End</label>
             <input id="dateend" class="form-control" type="date" name="dateend">
           </div>
+
+          <div class="form-group d-inline">
+            <label for="status">Status</label>
+            <select id="status" class="form-control" name="status">
+              <option value="">Semua Status</option>
+              <option value="pending" @if ($status == "pending")
+                  selected
+              @endif>Pending</option>
+              <option value="success" @if ($status == "success")
+                  selected
+              @endif>Success</option>
+              <option value="fail" @if ($status == "fail")
+                  selected
+              @endif>Cancel</option>
+            </select>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-success">Print</button>
@@ -39,23 +55,50 @@
         <div class="card">
           <div class="card-header">
             <div class="row">
-              <div class="col-md-8">
+              <div class="col-md-7">
                 <form action="{{ route('tambah.order', []) }}" method="get">
                   <button type="submit" class="btn btn-primary">
                       Tambah Data Order
                   </button>
-                  <button class="btn btn-secondary" type="button" data-toggle="modal" data-target="#cetak">
-                    <i class="fa fa-print"></i> Cetak
-                  </button>
+                  
               </form>
               </div>
-              <div class="col-md-4">
-                <div class="input-group">
+              <div class="col-md-5 text-right d-inline-block">
+                <div class="row">
+                  <div class="col-md-8">
+                    <form action="{{ url()->current() }}" class="d-inline">
+                      <div class="form-group d-inline">
+                        <select id="status" class="form-control" onchange="submit()" name="status">
+                          <option value="">Semua Status</option>
+                          <option value="pending" @if ($status == "pending")
+                              selected
+                          @endif>Pending</option>
+                          <option value="success" @if ($status == "success")
+                              selected
+                          @endif>Success</option>
+                          <option value="fail" @if ($status == "fail")
+                              selected
+                          @endif>Cancel</option>
+                        </select>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="col-md-4">
+                    <button class="btn btn-secondary btn-block d-inline" type="button" data-toggle="modal" data-target="#cetak">
+                      <i class="fa fa-print"></i> Cetak
+                    </button>
+                  </div>
+                </div>
+                
+
+               
+                  
+                {{-- <div class="input-group">
                   <input type="text" class="form-control" placeholder="Recipient's name" aria-label="Recipient's username" name="keyword" aria-describedby="button-addon2">
                   <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="button" id="button-addon2">Cari</button>
                   </div>
-                </div>
+                </div> --}}
               </div>
             </div>
           </div>
@@ -107,100 +150,13 @@
                             
                         @endif
 
-                        <button class="badge border-0 py-1 badge-info" type="button" data-toggle="modal" data-target="#ubahInvoice{{ $data->idinvoice }}">
+                        <a class="badge border-0 py-1 badge-info" href="{{ route('order.show', [$data->idinvoice]) }}" >
                           <i class="fa fa-edit"></i> Edit
-                        </button>
+                        </a>
                       </td>
 
                     </tr>
 
-                    <div id="ubahInvoice{{ $data->idinvoice }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
-                      <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="my-modal-title">Ubah Data</h5>
-                            <button class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <form action="{{ route('order.edit.order', [$data->idinvoice]) }}" method="post">
-                            @csrf
-                            @method("PUT")
-                            <div class="modal-body">
-                              <div class="form-group">
-                                <div class="card-body">
-                                  <div class="form-group">
-                                      <label for="email">Email</label>
-                                      <input id="email" class="form-control" type="email" name="email" value="{{ $data->email }}">
-                                  </div>
-          
-                                  <div class="form-group">
-                                      <label for="customer-name">Customer Name</label>
-                                      <input id="customer-name" class="form-control" type="text" name="name" value="{{ $data->name }}">
-                                  </div>
-          
-                                  <div class="form-group">
-                                      <label for="customer-accomodation">Accomodation & Vessel</label>
-                                      <div class="row">
-                                          <div class="col-md-6">
-                                              <input id="customer-accomodation" class="form-control" type="text" name="accomodation" value="{{ $data->accomodation }}">
-                                          </div>
-                                          <div class="col-md-6">
-                                              <input id="customer-accomodation" class="form-control" type="text" name="vessel" value="{{ $data->vessel }}">
-                                          </div>
-                                      </div>
-                                      
-                                  </div>
-          
-                                  <div class="form-group">
-                                      <label for="date-oftravel">DATE OF TRAVEL</label>
-                                      <div class="row">
-                                          <div class="col-2">
-                                              <label for="">Date Start</label>
-                                          </div>
-                                          <div class="col-10">
-                                              <input id="date-oftravel" class="form-control rounded-0" type="date" name="datestart" value="{{ $data->datestart }}">
-          
-                                          </div>
-                                      </div>
-          
-                                      <div class="row">
-                                          <div class="col-2">
-                                              <label for="">Date End</label>
-                                          </div>
-                                          <div class="col-10">
-                                              <input id="date-oftravel" class="form-control rounded-0" type="date" name="dateend" value="{{ $data->dateend }}">
-          
-                                          </div>
-                                      </div>
-                                      
-                                  </div>
-          
-                                  <div class="form-group">
-                                      <label for="total-payment">Total Payment</label>
-                                      <input id="total-payment" class="form-control" type="number" name="total_payment" value="{{ $data->total_payment }}">
-                                  </div>
-          
-                                  <div class="form-group">
-                                      <label for="customer-phone">Phone Number</label>
-                                      <input id="customer-phone" class="form-control" type="number" name="phone" value="{{ $data->phone }}">
-                                  </div>
-          
-                                  <div class="form-group">
-                                      <label for="customer-note">Note</label>
-                                      <textarea name="note" name="note" id="customer-note" class="form-control" rows="3">{{ $data->note }}</textarea>
-                                  </div>
-                              </div>
-                              </div>
-                            </div>
-                            <div class="modal-footer">
-                              <button type="submit" class="btn btn-success">Edit</button>
-                            </div>
-                          
-                          </form>
-                        </div>
-                      </div>
-                    </div>
 
                 @endforeach
               </tbody>

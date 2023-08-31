@@ -24,14 +24,19 @@ class orderC extends Controller
     public function index(Request $request)
     {
         $keyword = empty($request->keyword)?"":$request->keyword;
+        $status = empty($request->status)?"":$request->status;
 
-        $data = invoiceM::latest()->where("name", "like", "%$keyword%")->paginate(10);
+        $data = invoiceM::latest()->where("name", "like", "%$keyword%")
+        ->where("status", "like", "$status%")
+        ->paginate(10);
 
-        $data->appends($request->only(["limit", "keyword"]));
+        $data->appends($request->only(["limit", "keyword", "status"]));
 
         
         return view("order.dataorder", [
             "order" => $data,
+            "status" => $status,
+            "keyword" => $keyword,
         ]);
     }
 
@@ -121,6 +126,7 @@ class orderC extends Controller
     {
         $datestart = $request->datestart;
         $dateend = $request->dateend;
+        $status = empty($request->status)?"":$request->status;
 
         if(date("Y-m", strtotime($datestart)) == date("Y-m", strtotime($dateend))) {
             $bulan = date("F", strtotime($datestart));
@@ -128,7 +134,8 @@ class orderC extends Controller
             $bulan = date("F", strtotime($datestart))." to ".date("F", strtotime($dateend));
         }
 
-        $data = invoiceM::whereBetween("created_at", [$datestart, $dateend])->get();
+        $data = invoiceM::whereBetween("created_at", [$datestart, $dateend])
+        ->where("status", "like", "$status%")->get();
 
         $pdf = PDF::loadView("laporan.order", [
             "data" => $data,
@@ -192,9 +199,13 @@ class orderC extends Controller
      * @param  \App\Models\orderM  $orderM
      * @return \Illuminate\Http\Response
      */
-    public function show(orderM $orderM)
+    public function show(orderM $orderM, $idinvoice)
     {
-        //
+        $data = invoiceM::where("idinvoice", $idinvoice)->first();
+        return view("order.edit", [
+            "data" => $data,
+        ]);
+
     }
 
     /**

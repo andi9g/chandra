@@ -57,6 +57,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('pembayaran/proses', 'pembayaranC@proses')->name('proses.pembayaran');
 
         Route::get("order", "orderC@index");
+        Route::get("order/show/edit/{idinvoice}", "orderC@show")->name("order.show");
         Route::get("order/tambah", "orderC@order")->name("tambah.order");
         Route::delete("order/hapus/{idinvoice}", "orderC@hapus")->name("hapus.order");
         Route::post("order/konfirmation/{idinvoice}", "orderC@konfirmasi")->name("konfirmation.invoice");
