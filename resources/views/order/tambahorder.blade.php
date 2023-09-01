@@ -16,22 +16,22 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input id="email" class="form-control"  type="email" name="email">
+                                <input id="email" required class="form-control"  type="email" name="email">
                             </div>
     
                             <div class="form-group">
                                 <label for="customer-name">Customer Name</label>
-                                <input id="customer-name" class="form-control" type="text" name="name">
+                                <input id="customer-name" required class="form-control" type="text" name="name">
                             </div>
     
                             <div class="form-group">
                                 <label for="customer-accomodation">Accomodation & Vessel</label>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <input id="customer-accomodation" class="form-control" type="text" name="accomodation">
+                                        <input id="customer-accomodation" required class="form-control" type="text" name="accomodation">
                                     </div>
                                     <div class="col-md-6">
-                                        <input id="customer-accomodation" class="form-control" type="text" name="vessel">
+                                        <input id="customer-accomodation" required class="form-control" type="text" name="vessel">
                                     </div>
                                 </div>
                                 
@@ -44,7 +44,7 @@
                                         <label for="">Date Start</label>
                                     </div>
                                     <div class="col-10">
-                                        <input id="date-oftravel" class="form-control rounded-0" type="date" name="datestart">
+                                        <input id="date-oftravel" required class="form-control rounded-0" type="date" name="datestart">
     
                                     </div>
                                 </div>
@@ -54,7 +54,7 @@
                                         <label for="">Date End</label>
                                     </div>
                                     <div class="col-10">
-                                        <input id="date-oftravel" class="form-control rounded-0" type="date" name="dateend">
+                                        <input id="date-oftravel" required class="form-control rounded-0" type="date" name="dateend">
     
                                     </div>
                                 </div>
@@ -63,17 +63,17 @@
     
                             <div class="form-group">
                                 <label for="total-payment">Total Payment</label>
-                                <input id="total-payment" class="form-control" type="number" name="total_payment">
+                                <input id="total-payment" required class="form-control" type="number" name="total_payment">
                             </div>
     
                             <div class="form-group">
                                 <label for="customer-phone">Phone Number</label>
-                                <input id="customer-phone" class="form-control" type="number" name="phone">
+                                <input id="customer-phone" required class="form-control" type="number" name="phone">
                             </div>
     
                             <div class="form-group">
                                 <label for="customer-note">Note</label>
-                                <textarea name="note" name="note" id="customer-note" class="form-control" rows="3"></textarea>
+                                <textarea name="note" name="note" id="customer-note" required class="form-control" rows="3"></textarea>
                             </div>
                         </div>
                         <div class="card-footer">
