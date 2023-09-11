@@ -24,6 +24,9 @@ Route::get('login/google', 'Auth\LoginController@loginGoogle')->name('login.goog
 Route::get('login/google/callback', 'Auth\LoginController@callbackGoogle');
 Route::post('payments/midtrans-notification', 'callbackC@receive')->name('lihat.pembayaran');
 
+Route::get('ordernow', "ordernowC@index")->name("ordernow");
+Route::post('ordernow', "ordernowC@store")->name("ordernow.store");
+
 Route::get('invoice', 'invoiceC@invoice');
 Route::post('invoice', 'invoiceC@invoicepost')->name("show.invoice");
 Route::get('invoice/{invoice_number}/show', 'invoiceC@showinvoice');

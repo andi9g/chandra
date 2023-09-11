@@ -137,7 +137,16 @@
                       <td>{{ $data->datestart }}</td>
                       <td>{{ $data->dateend }}</td>
                       <td>{{ $data->status }}</td>
-                      <td>{{ number_format($data->total_payment, 0, ",",".") }}</td>
+                      <td>
+                        @if ($data->total_payment > 0)
+                          {{ number_format($data->total_payment, 0, ",",".") }}
+
+                        @else
+                            <font class="text-warning">
+                              Orderan Baru, Silahkan Edit
+                            </font>
+                        @endif
+                      </td>
                       <td>
                         @if ($data->status != "success")
                         <form action="{{ route('hapus.order', [$data->idinvoice]) }}" method="post">

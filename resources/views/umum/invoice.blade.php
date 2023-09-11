@@ -28,6 +28,16 @@
         </div>
         <br>
 
+        <div class="card p-4" style="background: rgba(255, 255, 255, 0.788);border-radius: 20px">
+            <div class="card-body text-center ">
+                <form action="{{ route('ordernow', []) }}">
+                    <button type="submit" class="btn btn-primary btn-block">
+                        ORDER NOW
+                    </button>
+                </form>
+            </div>
+        </div>
+
         
     </div>
 </div>

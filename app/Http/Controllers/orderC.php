@@ -48,11 +48,57 @@ class orderC extends Controller
 
     public function editorder(Request $request, $idinvoice)
     {
+        Config::$serverKey = config('midtrans.server_key');
+        Config::$clientKey = config('midtrans.client_key');
+        Config::$isProduction = config('midtrans.is_production');
+        
+        // dd(config('midtrans.server_key'));
+        // Simpan detail invoice dan orang yang akan membayar ke database
+        
         $data = $request->all();
-        $update = invoiceM::where("idinvoice", $idinvoice)->first();
-        $update->update($data);
+        $invoice = invoiceM::where("idinvoice", $idinvoice)->first();
+        $total_pay = $invoice->total_payment;
+        $invoice->update($data);
 
-        return redirect()->back()->with("success", "Success")->withInput();
+        $pesan = "Success, data berhasil diupdate";
+
+        if($total_pay==0){
+            $transactionDetails = array(
+                'transaction_details' => array(
+                    'order_id' => $invoice->idinvoice,
+                    'gross_amount' => (Double)($invoice->total_payment),
+                )
+            );
+    
+            $email = $request->email;
+            $name = $request->name;
+            $phone = $request->phone;
+            $link = url("/invoice?key=".$invoice->invoice_number);
+    
+            
+    
+            $mailData = [
+                'title' => 'Travel Order',
+                'content' => 'thank you for trusting our travel, here is the account information we have provided',
+                'email' => $email,
+                'invoice_number' => $invoice->invoice_number,
+                'total_payment' => $invoice->total_payment,
+                'accomodation' => $invoice->accomodation,
+                'vessel' => $invoice->vessel,
+                'datestart' => $invoice->datestart,
+                'dateend' => $invoice->dateend,
+                'link' => $link,
+            ];
+            
+            Mail::to($email)
+                ->send(new SampleMail($mailData));
+
+            $pesan = "Success, informasi pembayaran telah dikirim melalui email :".$email;
+            return redirect("order")->with("success", $pesan)->withInput();
+        }
+        
+        
+        return redirect()->back()->with("success", $pesan)->withInput();
     }
 
     

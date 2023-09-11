@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+@section("warnahome", "active")
+
 @section('content')
 <div class="container">
     <div class="row">
